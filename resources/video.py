@@ -12,6 +12,10 @@ class VideoResource(Resource):
         args = VideoResource.parser.parse_args()
         video = args['file']
         if video:
-            text = processVideo(video)
+            now = datetime.now()
+            myTimeStamp = now.strftime("%d%m%Y%H%M%S")
+            fileName = './assets/' + myTimeStamp + '.mp4'
+            video.save(fileName)
+            text = processVideo(fileName)
             return {'res': 'Uploaded', 'text': text}, 201
         return {'res': 'No video'}, 501
